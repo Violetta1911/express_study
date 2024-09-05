@@ -1,0 +1,41 @@
+{
+  "name": "mern",
+  "version": "1.0.0",
+  "description": "study express.js and DB",
+  "main": "app.js",
+  "scripts": {
+    "server": "nodemon app.js",
+    "client": "npm run start --prefix client",
+    "client:install": "npm install --prefix client",
+    "client:build": "npm run build --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Violetta1911/express_study.git"
+  },
+  "keywords": [
+    "express",
+    "react",
+    "data",
+    "base"
+  ],
+  "author": "violetta <sva198366@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Violetta1911/express_study/issues"
+  },
+  "homepage": "https://github.com/Violetta1911/express_study#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.4"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.12",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.6.1",
+    "shortid": "^2.2.16"
+  }
+}
