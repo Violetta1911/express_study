@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { useFetch } from '../hooks/useFetch'
+import { useMassage } from '../hooks/useMessage'
 
 
 export const AuthPage = () => {
-    const { loading, request, } = useFetch()
+    const { loading, request, error, clearError } = useFetch()
+    const message = useMassage();
+
     const [form, setForm] = useState({
         email: '', password: ''
     })
 
     useEffect(() => {
-        window.M.updateTextFields()
+        window.M.updateTextFields() //materialize object M
     }, [])
+
+    useEffect(() => {
+        message(error)
+        clearError();
+    }, [error, message, clearError])
 
     const changeHandler = event => {
         setForm({ ...form, [event.target.name]: event.target.value })
