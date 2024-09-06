@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useFetch } from '../hooks/useFetch'
 import { useMassage } from '../hooks/useMessage'
+import { useAuth } from '../hooks/useAuth'
 
 
 export const AuthPage = () => {
     const { loading, request, error, clearError } = useFetch()
+    const { login } = useAuth();
+
     const message = useMassage();
 
     const [form, setForm] = useState({
@@ -27,14 +30,14 @@ export const AuthPage = () => {
     const registerHandler = async () => {
         try {
             const data = await request('/api/auth/register', 'POST', { ...form })
-            console.log(data, "!!!!!!!!")
+
         } catch (e) { }
     }
 
     const loginHandler = async () => {
         try {
             const data = await request('/api/auth/login', 'POST', { ...form })
-            console.log("!!!!!", data)
+            login(data);
         } catch (e) { }
     }
 
