@@ -1,25 +1,25 @@
-
-import React, { useState } from 'react'
+import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { AppRoutes } from './routes'
-// import {Navbar} from './components/Navbar'
-// import {Loader} from './components/Loader'
-import 'materialize-css'
-import { AuthContext } from './context/AuthContext'
 import { useAuth } from './hooks/useAuth'
+import { AuthContext } from './context/AuthContext'
 import { Navbar } from './components/Navbar'
+// import { Loader } from './components/Loader'
+import 'materialize-css'
 
 function App() {
-  const { authData, login, logout, } = useAuth()
-  const isAuthenticated = authData.token;
+  const { token, login, logout, userId, ready } = useAuth()
+  const isAuthenticated = !!token
   const routes = AppRoutes(isAuthenticated)
 
-  // if (!ready) {
+  // if (!ready) { 
   //   return <Loader />
   // }
 
   return (
-    <AuthContext.Provider value={{ ...authData, isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{
+      token, login, logout, userId, isAuthenticated
+    }}>
       <Router>
         {isAuthenticated && <Navbar />}
         <div className="container">
@@ -27,7 +27,6 @@ function App() {
         </div>
       </Router>
     </AuthContext.Provider>
-
   )
 }
 

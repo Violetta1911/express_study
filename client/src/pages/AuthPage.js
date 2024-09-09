@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useFetch } from '../hooks/useFetch'
 import { useMassage } from '../hooks/useMessage'
 import { useAuth } from '../hooks/useAuth'
+import { useNavigate } from 'react-router-dom'
 
 
 export const AuthPage = () => {
     const { loading, request, error, clearError } = useFetch()
     const { login } = useAuth();
+    const navigate = useNavigate();
 
     const message = useMassage();
 
@@ -37,7 +39,9 @@ export const AuthPage = () => {
     const loginHandler = async () => {
         try {
             const data = await request('/api/auth/login', 'POST', { ...form })
-            login(data);
+            login(data.token, data.userId);
+            navigate('/create')
+
         } catch (e) { }
     }
 

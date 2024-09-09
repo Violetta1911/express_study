@@ -8,6 +8,7 @@ const app = express()
 app.use(express.json({ extended: true }))
 
 app.use('/api/auth', require('./routes/auth.route'))
+app.use('/api/links', require('./routes/links.route'))
 
 
 const PORT = config.get('port') || 4000
