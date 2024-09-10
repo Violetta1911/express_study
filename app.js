@@ -9,6 +9,15 @@ app.use(express.json({ extended: true }))
 
 app.use('/api/auth', require('./routes/auth.route'))
 app.use('/api/links', require('./routes/links.route'))
+app.use('/t', require('./routes/redirect.route'))
+
+if (process.env.NODE_ENV === 'production') {
+    app.use('/', express.static(path.join(__dirname, 'client', 'build')))
+    app.get('*', (res, req) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+
+    })
+}
 
 
 const PORT = config.get('port') || 4000

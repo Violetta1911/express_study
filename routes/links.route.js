@@ -3,10 +3,10 @@ const config = require('config');
 const shortId = require('shortid');
 const Link = require('../models/Link');
 const router = Router();
-const auth = require('../middleware /auth.middleware');
+const auth = require('../middleware/auth.middleware');
 
-// /api/links/generate
-router.post('/generate', auth, async (req, res) => {
+// /api/links
+router.post('/', auth, async (req, res) => {
 
     try {
         const { from } = req.body
@@ -35,7 +35,7 @@ router.post('/generate', auth, async (req, res) => {
 router.get('/', auth, async (req, res) => {
     try {
 
-        const links = new Link.find({ owner: req.user.userId })
+        const links = await Link.find({ owner: req.user.userId })
 
         res.json(links);
 
@@ -50,7 +50,7 @@ router.get('/:id', async (req, res) => {
 
     try {
 
-        const link = new Link.findById(req.params.id);
+        const link = await Link.findById(req.params.id);
 
         res.json(link);
 
