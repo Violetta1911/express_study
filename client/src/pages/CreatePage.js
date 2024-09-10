@@ -21,7 +21,7 @@ export const CreatePage = () => {
         }
 
         try {
-            const res = await request('/api/links/generate', 'POST', { from: link }, { Authorization: `Baer ${token}` })
+            const res = await request('/api/links', 'POST', { from: link }, { Authorization: `Baer ${token}` })
             if (!res.ok) {
                 return
             }
