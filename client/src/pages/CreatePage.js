@@ -1,13 +1,15 @@
 import { useContext, useState } from "react"
 import { useFetch } from "../hooks/useFetch";
 import { AuthContext } from "../context/AuthContext"
+import { useNavigate } from "react-router-dom";
 
 
 
 export const CreatePage = () => {
     const [link, setLink] = useState('');
     const { request } = useFetch();
-    const auth = useContext(AuthContext)
+    const navigate = useNavigate();
+    const { token } = useContext(AuthContext)
 
     const changeHandler = (event) => {
         setLink(event.target.value)
@@ -19,12 +21,12 @@ export const CreatePage = () => {
         }
 
         try {
-            const res = await request('/api/links/generate', 'POST', { from: link }, { Authorization: `Baer ${auth.token}` })
+            const res = await request('/api/links/generate', 'POST', { from: link }, { Authorization: `Baer ${token}` })
             if (!res.ok) {
                 return
             }
             const data = res.json()
-            console.log('???????', data)
+            navigate(`/detail/${data.link._id}`)
             return res.json()
 
         } catch (error) {
